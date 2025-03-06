@@ -1,6 +1,10 @@
 package com.example.SubscriptionManagementSystem.Entity;
 
 import com.example.SubscriptionManagementSystem.Enum.BookCategory;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "isbn")
 public class Book {
     @Id
     private Long ISBN;
@@ -32,6 +37,8 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private Set<Author> authors = new HashSet<>();
+    @OneToMany(mappedBy = "book",cascade = CascadeType.ALL)
+    private Set<BookCopy> bookCopies = new HashSet<>();
 
     public Book(Long ISBN,String name,Integer publishedYear,String genre,Integer copiesAvailable,BookCategory bookCategory){
         this.ISBN = ISBN;

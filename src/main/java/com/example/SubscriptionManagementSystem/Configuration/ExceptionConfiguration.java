@@ -31,7 +31,7 @@ public class ExceptionConfiguration {
         if(ex.getMessage().contains("Duplicate Entry")){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Key Already Exists");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("DB Error");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(ExpiredJwtException.class)

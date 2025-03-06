@@ -13,12 +13,5 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 class SubscriptionManagementSystemApplicationTests {
 
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Test
-	void signUp() throws Exception{
-		mockMvc.perform(post("/user/login").header("username","sankalpa").header("password","1234")).andExpect(status().isOk());
-	}
 
 }

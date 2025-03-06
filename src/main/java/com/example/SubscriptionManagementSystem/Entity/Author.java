@@ -1,5 +1,6 @@
 package com.example.SubscriptionManagementSystem.Entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors",cascade = CascadeType.PERSIST)
     private Set<Book> books = new HashSet<>();
+
+    public void removeBooks(){
+        this.books.forEach(book->book.getAuthors().remove(this));
+        this.books.clear();
+    }
 }
