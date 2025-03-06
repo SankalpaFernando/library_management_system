@@ -68,7 +68,7 @@ public class AuthenticationConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // Allow frontend
+        config.setAllowedOrigins(List.of("http://localhost:3000","https://celebrated-contentment-production.up.railway.app")); // Allow frontend
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
